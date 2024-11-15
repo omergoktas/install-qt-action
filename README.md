@@ -32,7 +32,7 @@ This is the host platform of the Qt version you will be installing. It's unlikel
 
 For example, if you are building on Linux and targeting desktop, you would set host to `linux`. If you are building on Linux and targeting android, you would set host to `linux` also. The host platform is the platform that your application will build on, not its target platform.
 
-Possible values: `windows`, `mac`, or `linux`
+Possible values: `windows`, `windows_arm64`, `mac`, `linux`, or `linux_arm64`
 
 Defaults to the current platform it is being run on.
 
