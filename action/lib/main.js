@@ -100,7 +100,7 @@ const locateQtArchDir = (installDir) => {
     // This makes a list of all the viable arch directories that contain a qmake file.
     const qtArchDirs = glob
         .sync(`${installDir}/[0-9]*/*/bin/qmake*`)
-        .map((s) => s.replace(/\/bin\/qmake[^/]*$/, ""));
+        .map((s) => s.replace(/[/\\]bin[/\\]qmake[^/\\]*$/i, ""));
     // For Qt6 mobile and wasm installations, and Qt6 Windows on ARM installations,
     // a standard desktop Qt installation must exist alongside the requested architecture.
     // In these cases, we must select the first item that ends with 'android*', 'ios', 'wasm*' or 'msvc*_arm64'.
@@ -144,11 +144,11 @@ class Inputs {
         }
         else {
             // Make sure host is one of the allowed values
-            if (host === "windows" || host === "mac" || host === "linux") {
+            if (host === "windows" || host === "windows_arm64" || host === "mac" || host === "linux" || host === "linux_arm64") {
                 this.host = host;
             }
             else {
-                throw TypeError(`host: "${host}" is not one of "windows" | "mac" | "linux"`);
+                throw TypeError(`host: "${host}" is not one of "windows" | "windows_arm64" | "mac" | "linux" | "linux_arm64"`);
             }
         }
         const target = core.getInput("target");
